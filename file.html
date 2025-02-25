@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Move and Dance Animation</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #000000;
+        }
+        #box {
+            width: 200px;
+            height: 300px;
+            background-image: url('https://i.postimg.cc/XY44cV1t/Whats-App-Image-2025-02-25-at-09-42-01-1.jpg');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        .dance {
+            animation: dance 0.5s infinite alternate;
+        }
+        @keyframes dance {
+            0% { transform: rotate(0deg) translateY(0); }
+            100% { transform: rotate(20deg) translateY(-10px); }
+        }
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+    <br>
+    <button onclick="move('left')">Left</button>
+    <button onclick="move('right')">Right</button>
+    <button onclick="move('up')">Up</button>
+    <button onclick="move('down')">Down</button>
+    <button onclick="stopMovement()">Stop</button>
+    <button onclick="dance()">Dance</button>
+    
+    <script>
+        let box = document.getElementById("box");
+        let moveInterval;
+        let positionX = 0, positionY = 0;
+        
+        function move(direction) {
+            clearInterval(moveInterval);
+            moveInterval = setInterval(() => {
+                if (direction === 'left') positionX -= 5;
+                if (direction === 'right') positionX += 5;
+                if (direction === 'up') positionY -= 5;
+                if (direction === 'down') positionY += 5;
+                box.style.transform = `translate(${positionX}px, ${positionY}px)`;
+            }, 50);
+        }
+        
+        function stopMovement() {
+            clearInterval(moveInterval);
+        }
+        
+        function dance() {
+            stopMovement();
+            box.classList.add("dance");
+            setTimeout(() => box.classList.remove("dance"), 2000); // Stops dancing after 2 seconds
+        }
+    </script>
+</body>
+</html>
